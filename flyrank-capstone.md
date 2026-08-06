@@ -3,6 +3,7 @@
 ## 1. Title + Abstract
 * **Question:** How can content teams automatically identify which web pages need immediate updates to improve search visibility?
 * **Method:** We engineered search performance features and built a simple human-rule baseline to identify high-visibility, low-click pages. We then trained an interpretable Decision Tree Classifier on 90 days of web traffic data to mirror and scale this logic.
+* **FlyRank Context & Case Study:** At FlyRank scale, managing multi-channel search performance across thousands of client pages requires automated intent classification rather than manual auditing. This study addresses that operational bottleneck by establishing an interpretable, leakage-resistant prioritization framework.
 * **Validation:** To ensure honesty, we validated the model using a strict client-grouped data split to prevent the algorithm from simply memorizing specific website traffic patterns.
 * **Key Result:** The model successfully matched the human baseline with 100% precision on the test set, relying heavily on proportional Click-Through Rate (CTR) rather than raw volume.
 * **Impact:** This results in a ranked action playbook that automatically routes the best "Quick Win" pages to human editors.
@@ -10,7 +11,7 @@
 ---
 
 ## 2. Introduction
-Content teams and SEO managers often oversee thousands, or even millions, of web pages. It is impossible to manually review the analytics for every single page to decide what needs an update. Grouping pages automatically helps teams manage large websites by immediately surfacing the highest-value opportunities. By using data to prioritize work, teams can focus their limited human editing time on the pages that will actually drive traffic growth, rather than guessing where to start.
+Content teams and SEO managers often oversee thousands, or even millions, of web pages. At FlyRank scale, managing multi-channel search performance across thousands of client pages requires automated intent classification rather than manual auditing. It is impossible to manually review the analytics for every single page to decide what needs an update. Grouping pages automatically helps teams manage large websites by immediately surfacing the highest-value opportunities. By using data to prioritize work, teams can focus their limited human editing time on the pages that will actually drive traffic growth, rather than guessing where to start. This study addresses that operational bottleneck by establishing an interpretable, leakage-resistant prioritization framework.
 
 ---
 
@@ -20,7 +21,7 @@ This project utilizes a large-scale search intelligence dataset covering a 90-da
 ---
 
 ## 4. Methodology
-To build the feature vector, we selected safe metrics that describe page performance: `impressions_90d`, `clicks_90d`, and an engineered `ctr` (Click-Through Rate) feature. Missing values were filled with zero. We chose a Decision Tree Classifier because it is highly interpretable, allowing us to easily audit the exact thresholds it learned and ensuring the model does not act as a "black box." For validation, we used a Client-Grouped Split (GroupKFold). This honest split ensures that pages from the same website do not bleed across the training and testing sets, forcing the model to learn universal SEO rules rather than memorizing a specific client's data.
+To build the feature vector, we selected safe metrics that describe page performance: `impressions_90d`, `clicks_90d`, and an engineered `ctr` (Click-Through Rate) feature. Missing values were filled with zero. We chose a Decision Tree Classifier because it is highly interpretable, allowing us to easily audit the exact thresholds it learned and ensuring the model does not act as a “black box.” For validation, we used a Client-Grouped Split (GroupKFold). This honest split ensures that pages from the same website do not bleed across the training and testing sets, forcing the model to learn universal SEO rules rather than memorizing a specific client’s data.
 
 ---
 
@@ -35,7 +36,7 @@ This tool is not fully autonomous and cannot replace human editorial judgment. O
 ---
 
 ## 7. Ranked Recommendations
-Based on the model's outputs, we recommend the following content action playbook:
+Based on the model’s outputs, we recommend the following content action playbook:
 
 * **Quick Win - Update Title (High Priority):** Pages with high impressions but low CTR. These are highly visible on Google, but users are not clicking. The immediate action is for a human to rewrite the title tag and meta description.
 * **Protect - Monitor Traffic (Secondary Priority):** Pages with high impressions and healthy clicks. No immediate edits are needed, but they should be monitored for sudden drops.
@@ -44,7 +45,7 @@ Based on the model's outputs, we recommend the following content action playbook
 ---
 
 ## 8. Reproducibility
-The full Python code, data pipelines, and Jupyter Notebooks used to generate this research are publicly available. You can view the code and reproduce the results by visiting my GitHub repository here: 
+The full Python code, data pipelines, and Jupyter Notebooks used to generate this research are publicly available. You can view the code and reproduce the results by visiting my GitHub repository here:  
 [https://github.com/rafayraza-nextgen/flyrank-ml-internship](https://github.com/rafayraza-nextgen/flyrank-ml-internship)
 
 ---
